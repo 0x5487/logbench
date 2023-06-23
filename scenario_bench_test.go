@@ -260,6 +260,76 @@ func BenchmarkDisabledAddingFields(b *testing.B) {
 	})
 }
 
+func BenchmarkShortText(b *testing.B) {
+	b.Logf("Logging with short text")
+
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newBlackbearLog()
+
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				logger.Info().Msg(shortText)
+			}
+		})
+	})
+
+	b.Run("rs/zerolog", func(b *testing.B) {
+		logger := newZerolog()
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				logger.Info().Msg(shortText)
+			}
+		})
+	})
+
+	b.Run("Zap", func(b *testing.B) {
+		logger := newZapLogger(zap.DebugLevel)
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				logger.Info(shortText)
+			}
+		})
+	})
+}
+
+func BenchmarkLongText(b *testing.B) {
+	b.Logf("Logging with short text")
+
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newBlackbearLog()
+
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				logger.Info().Msg(longText)
+			}
+		})
+	})
+
+	b.Run("rs/zerolog", func(b *testing.B) {
+		logger := newZerolog()
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				logger.Info().Msg(longText)
+			}
+		})
+	})
+
+	b.Run("Zap", func(b *testing.B) {
+		logger := newZapLogger(zap.DebugLevel)
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				logger.Info(longText)
+			}
+		})
+	})
+}
+
 func BenchmarkWithoutFields(b *testing.B) {
 	b.Logf("Logging without any structured context.")
 

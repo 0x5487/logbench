@@ -22,8 +22,19 @@ package main
 
 import (
 	"io"
+	"strings"
 
 	"github.com/nite-coder/blackbear/pkg/log"
+)
+
+const _1b = "a"
+
+var (
+	_200b = strings.Repeat(_1b, 200)
+	_10kb = strings.Repeat(_1b, 10*1024)
+
+	shortText = _200b
+	longText  = _10kb
 )
 
 func fakeBlackBearLogContext(c log.Context) log.Context {
