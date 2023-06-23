@@ -46,6 +46,8 @@ github.com/mattn/go-isatty v0.0.17/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/
 github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b/go.mod h1:01TrycV0kFyexm33Z7vhZRXopbI8J3TDReVlkTgMUxE=
 github.com/nite-coder/blackbear v0.0.0-20230623072910-5b3ca508d078 h1:IYOnYPCF6FBJS9vfSuH98x46qIWWBfl3/277URgpWkQ=
 github.com/nite-coder/blackbear v0.0.0-20230623072910-5b3ca508d078/go.mod h1:3XGmJXqlvjxq3Rsom/sHeQW4sbEwtbcsJ5i0zsRLBWo=
+github.com/nite-coder/blackbear v0.0.0-20230623095634-5bf75ac5a123 h1:V6s3aA2hgEy6WHp3fd6kFPwxoo8Nb5kzCXDgYhIfIBw=
+github.com/nite-coder/blackbear v0.0.0-20230623095634-5bf75ac5a123/go.mod h1:3XGmJXqlvjxq3Rsom/sHeQW4sbEwtbcsJ5i0zsRLBWo=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/gomega v1.5.0/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

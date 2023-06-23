@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/apex/log v1.9.0
 	github.com/go-kit/kit v0.12.0
-	github.com/nite-coder/blackbear v0.0.0-20230623072910-5b3ca508d078
+	github.com/nite-coder/blackbear v0.0.0-20230623095634-5bf75ac5a123
 	github.com/rs/zerolog v1.29.1
 	github.com/sirupsen/logrus v1.9.3
 	go.uber.org/multierr v1.11.0
