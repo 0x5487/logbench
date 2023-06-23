@@ -23,21 +23,18 @@ package main
 import (
 	"testing"
 
-	"github.com/nite-coder/blackbear/pkg/log"
-	"github.com/nite-coder/blackbear/pkg/log/handler/discard"
 	"go.uber.org/zap"
 )
 
 func BenchmarkDisabledWithoutFields(b *testing.B) {
 	b.Logf("Logging at a disabled level without any structured context.")
-	b.Run("jasnosoft/log", func(b *testing.B) {
-		logger := log.New()
-		log.SetLogger(logger)
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newDisabledBlackbearLog()
 
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				log.Info(getMessage(0))
+				logger.Info().Msg(getMessage(0))
 			}
 		})
 	})
@@ -111,15 +108,12 @@ func BenchmarkDisabledWithoutFields(b *testing.B) {
 
 func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 	b.Logf("Logging at a disabled level with some accumulated context.")
-	b.Run("jasnosoft/log", func(b *testing.B) {
-		logger := log.New()
-		log.SetLogger(logger)
-
-		logger = fakeBlackBearLogFields().Logger()
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := fakeBlackBearLogContext(newDisabledBlackbearLog().With()).Logger()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				logger.Info(getMessage(0))
+				logger.Info().Msg(getMessage(0))
 			}
 		})
 	})
@@ -195,14 +189,13 @@ func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 func BenchmarkDisabledAddingFields(b *testing.B) {
 	b.Logf("Logging at a disabled level, adding context at each log site.")
 
-	b.Run("jasnosoft/log", func(b *testing.B) {
-		logger := log.New()
-		log.SetLogger(logger)
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newDisabledBlackbearLog()
 
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				fakeBlackBearLogFields().Info(getMessage(0))
+				fakeBlackBearFields(logger.Info()).Msg(getMessage(0))
 			}
 		})
 	})
@@ -270,16 +263,13 @@ func BenchmarkDisabledAddingFields(b *testing.B) {
 func BenchmarkWithoutFields(b *testing.B) {
 	b.Logf("Logging without any structured context.")
 
-	b.Run("jasnosoft/log", func(b *testing.B) {
-		logger := log.New()
-		h := discard.New()
-		logger.AddHandler(h, log.InfoLevel)
-		log.SetLogger(logger)
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newBlackbearLog()
 
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				log.Info(getMessage(0))
+				logger.Info().Msg(getMessage(0))
 			}
 		})
 	})
@@ -408,17 +398,13 @@ func BenchmarkWithoutFields(b *testing.B) {
 func BenchmarkAccumulatedContext(b *testing.B) {
 	b.Logf("Logging with some accumulated context.")
 
-	b.Run("jasnosoft/log", func(b *testing.B) {
-		logger := log.New()
-		h := discard.New()
-		logger.AddHandler(h, log.InfoLevel)
-		logger = log.SetLogger(logger)
-		logger = fakeBlackBearLogFields().Logger()
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newBlackbearLog()
 
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				logger.Info(getMessage(0))
+				logger.Info().Msg(getMessage(0))
 			}
 		})
 	})
@@ -545,16 +531,13 @@ func BenchmarkAccumulatedContext(b *testing.B) {
 
 func BenchmarkAddingFields(b *testing.B) {
 	b.Logf("Logging with additional context at each log site.")
-	b.Run("jasnosoft/log", func(b *testing.B) {
-		logger := log.New()
-		h := discard.New()
-		logger.AddHandler(h, log.InfoLevel)
-		log.SetLogger(logger)
+	b.Run("blackbear/log", func(b *testing.B) {
+		logger := newBlackbearLog()
 
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				fakeBlackBearLogFields().Info(getMessage(0))
+				fakeBlackBearFields(logger.Info()).Msg(getMessage(0))
 			}
 		})
 	})

@@ -21,11 +21,13 @@
 package main
 
 import (
+	"io"
+
 	"github.com/nite-coder/blackbear/pkg/log"
 )
 
-func fakeBlackBearLogFields() log.Context {
-	return log.
+func fakeBlackBearLogContext(c log.Context) log.Context {
+	return c.
 		Int("int", _tenInts[0]).
 		Ints("ints", _tenInts).
 		Str("string", _tenStrings[0]).
@@ -36,4 +38,34 @@ func fakeBlackBearLogFields() log.Context {
 		Any("user2", _oneUser).
 		Any("users", _tenUsers).
 		Err(errExample)
+}
+
+func fakeBlackBearFields(e *log.Entry) *log.Entry {
+	return e.
+		Int("int", _tenInts[0]).
+		Ints("ints", _tenInts).
+		Str("string", _tenStrings[0]).
+		Strs("strings", _tenStrings).
+		Time("time", _tenTimes[0]).
+		Times("times", _tenTimes).
+		Any("user1", _oneUser).
+		Any("user2", _oneUser).
+		Any("users", _tenUsers).
+		Err(errExample)
+}
+
+func newBlackbearLog() *log.Logger {
+	opts := log.HandlerOptions{
+		Level:       log.DebugLevel,
+		DisableTime: true,
+	}
+	return log.New(log.NewJSONHandler(io.Discard, &opts))
+}
+
+func newDisabledBlackbearLog() *log.Logger {
+	opts := log.HandlerOptions{
+		Level:       log.FatalLevel,
+		DisableTime: true,
+	}
+	return log.New(log.NewJSONHandler(io.Discard, &opts))
 }
