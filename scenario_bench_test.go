@@ -296,7 +296,7 @@ func BenchmarkShortText(b *testing.B) {
 }
 
 func BenchmarkLongText(b *testing.B) {
-	b.Logf("Logging with short text")
+	b.Logf("Logging with long text")
 
 	b.Run("blackbear/log", func(b *testing.B) {
 		logger := newBlackbearLog()
